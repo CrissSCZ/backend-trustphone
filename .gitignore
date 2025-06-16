@@ -1,1 +1,41 @@
-venv
+# Entorno virtual (ajusta si usas otro nombre)
+venv/
+.env/
+.env.local
+*.env
+
+# Archivos de configuración o secretos
+*.sqlite3
+*.pyc
+__pycache__/
+db.sqlite3
+
+# Archivos temporales y logs
+*.log
+*.pot
+*.mo
+*.py[cod]
+*.so
+*.swp
+*.swo
+*.DS_Store
+*.~undo-tree*
+
+# Archivos de IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# Archivos estáticos y media generados en producción
+staticfiles/
+static/
+media/
+
+# Archivos de compilación
+node_modules/
+dist/
+build/
+
+# Django migrations (opcional, si no quieres versionarlas)
+**/migrations/*.py
+!**/migrations/__init__.py

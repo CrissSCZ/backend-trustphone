@@ -1,0 +1,201 @@
+{% extends 'layout/admin.html' %} {% block content %}
+<form
+  class="max-w-5xl mx-auto p-6 bg-white shadow rounded-lg"
+  action="{% url 'configuracion' %}"
+  method="post"
+  enctype="multipart/form-data"
+>
+  {% csrf_token %}
+
+  <!-- Configuración de la Tienda -->
+  <fieldset class="mb-6">
+    <legend class="text-xl font-semibold text-gray-800 mb-4">
+      🛒 Configuración de la Tienda
+    </legend>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Nombre de la tienda -->
+      <div>
+        <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900"
+          >Nombre</label
+        >
+        <input
+          value="{{ tienda.nombre }}"
+          type="text"
+          id="nombre"
+          name="nombre"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          required
+        />
+      </div>
+
+      <!-- Dirección -->
+      <div>
+        <label
+          for="direccion"
+          class="block mb-2 text-sm font-medium text-gray-900"
+          >Dirección</label
+        >
+        <input
+          value="{{ tienda.direccion }}"
+          type="text"
+          id="direccion"
+          name="direccion"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          required
+        />
+      </div>
+
+      <!-- Detalles -->
+      <div class="md:col-span-2">
+        <label
+          for="detalles"
+          class="block mb-2 text-sm font-medium text-gray-900"
+          >Detalles</label
+        >
+        <textarea
+          id="detalles"
+          name="detalles"
+          rows="10"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          required
+        >
+{{ tienda.detalles }}</textarea
+        >
+      </div>
+
+      <!-- Imagen actual -->
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900"
+          >Fotografía actual</label
+        >
+        {% if tienda.fotografia %}
+        <img
+          src="{{ tienda.fotografia.url }}"
+          alt="Fotografía actual"
+          class="w-32 h-32 object-cover rounded border"
+        />
+        {% else %}
+        <p class="text-sm text-gray-500">No hay imagen cargada.</p>
+        {% endif %}
+
+        <!-- Cargar nueva imagen -->
+        <div class="mt-4">
+          <label
+            for="fotografia"
+            class="block mb-2 text-sm font-medium text-gray-900"
+            >Cambiar fotografía</label
+          >
+          <input
+            type="file"
+            id="fotografia"
+            name="fotografia"
+            accept="image/*"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          />
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- Configuración del Encargado -->
+  <fieldset class="mb-6">
+    <legend class="text-xl font-semibold text-gray-800 mb-4">
+      👤 Configuración del Encargado
+    </legend>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Nombre -->
+      <div>
+        <label
+          for="nombre_encargado"
+          class="block mb-2 text-sm font-medium text-gray-900"
+          >Nombre</label
+        >
+        <input
+          value="{{ encargado.nombre }}"
+          type="text"
+          id="nombre_encargado"
+          name="nombre"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          required
+        />
+      </div>
+
+      <!-- Apellidos -->
+      <div>
+        <label
+          for="apellido"
+          class="block mb-2 text-sm font-medium text-gray-900"
+          >Apellidos</label
+        >
+        <input
+          value="{{ encargado.apellido }}"
+          type="text"
+          id="apellido"
+          name="apellido"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          required
+        />
+      </div>
+
+      <!-- Teléfono -->
+      <div>
+        <label
+          for="telefono"
+          class="block mb-2 text-sm font-medium text-gray-900"
+          >Teléfono</label
+        >
+        <input
+          value="{{ encargado.telefono }}"
+          type="text"
+          id="telefono"
+          name="telefono"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          required
+        />
+      </div>
+
+      <!-- Correo -->
+      <div>
+        <label for="correo" class="block mb-2 text-sm font-medium text-gray-900"
+          >Correo</label
+        >
+        <input
+          value="{{ encargado.correo }}"
+          type="email"
+          id="correo"
+          name="correo"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          required
+        />
+      </div>
+
+      <!-- Carnet -->
+      <div>
+        <label for="carnet" class="block mb-2 text-sm font-medium text-gray-900"
+          >Carnet de Identidad</label
+        >
+        <input
+          value="{{ encargado.carnet }}"
+          type="text"
+          id="carnet"
+          name="carnet"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+          required
+        />
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- Botón de envío -->
+  <div class="text-right">
+    <button
+      type="submit"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5"
+    >
+      Guardar
+    </button>
+  </div>
+</form>
+{% endblock %}

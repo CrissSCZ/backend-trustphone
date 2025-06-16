@@ -1,0 +1,227 @@
+{% extends 'layout/admin.html' %} {% block content %}
+<form
+  class="max-w-5xl mx-auto"
+  action="{% url 'crear_celular' %}"
+  method="post"
+  enctype="multipart/form-data"
+>
+  {% csrf_token %}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Marca -->
+    <div>
+      <label for="marca" class="block mb-2 text-sm font-medium text-gray-900"
+        >Marca</label
+      >
+      <select
+        id="marca"
+        name="marca"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        required
+      >
+      <option selected value="">Seleccione una marca</option>
+        {% for marca in marcas %}
+        <option value="{{ marca.id_marca }}">{{ marca.nombre }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <!-- Modelo -->
+    <div>
+      <label for="modelo" class="block mb-2 text-sm font-medium text-gray-900"
+        >Modelo</label
+      >
+      <input
+        type="text"
+        id="modelo"
+        name="modelo"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        required
+      />
+    </div>
+
+    <!-- Color -->
+    <div>
+      <label for="color" class="block mb-2 text-sm font-medium text-gray-900"
+        >Color</label
+      >
+      <select
+        id="color"
+        name="color"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        required
+      >
+      <option selected value="">Seleccione un color</option>
+        <option value="Negro">⚫ Negro</option>
+        <option value="Blanco">⚪ Blanco</option>
+        <option value="Gris">🔘 Gris</option>
+        <option value="Azul">🔵 Azul</option>
+        <option value="Rojo">🔴 Rojo</option>
+        <option value="Dorado">🟡 Dorado</option>
+        <option value="Plateado">⚪ Plateado</option>
+        <option value="Verde">🟢 Verde</option>
+        <option value="Morado">🟣 Morado</option>
+        <option value="Rosado">🌸 Rosado</option>
+      </select>
+    </div>
+
+    <!-- Vendedor -->
+    <div>
+      <label for="vendedor" class="block mb-2 text-sm font-medium text-gray-900"
+        >Vendedor</label
+      >
+      <select
+        id="vendedor"
+        name="vendedor"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        required
+      >
+      <option selected value="">Seleccione un vendedor</option>
+        {% for vendedor in vendedores %}
+        <option value="{{ vendedor.id_vendedor }}">
+          {{ vendedor.nombre }} {{ vendedor.apellido }} - {{ vendedor.correo }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Almacenamiento -->
+    <div>
+      <label
+        for="almacenamiento"
+        class="block mb-2 text-sm font-medium text-gray-900"
+        >Almacenamiento</label
+      >
+      <select
+        id="almacenamiento"
+        name="almacenamiento"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        required
+      >
+      <option selected value="">Seleccione un almacenamiento</option>
+        <option value="16">16 GB</option>
+        <option value="32">32 GB</option>
+        <option value="64">64 GB</option>
+        <option value="128">128 GB</option>
+        <option value="256">256 GB</option>
+        <option value="512">512 GB</option>
+      </select>
+    </div>
+
+    <!-- RAM -->
+    <div>
+      <label for="ram" class="block mb-2 text-sm font-medium text-gray-900"
+        >RAM</label
+      >
+      <select
+        id="ram"
+        name="ram"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        required
+      >
+        <option selected value="">Seleccione una RAM</option>
+        <option value="2">2 GB</option>
+        <option value="4">4 GB</option>
+        <option value="8">8 GB</option>
+        <option value="16">16 GB</option>
+      </select>
+    </div>
+
+    <!-- Estado -->
+    <div>
+      <label for="estado" class="block mb-2 text-sm font-medium text-gray-900"
+        >Estado</label
+      >
+      <select
+        id="estado"
+        name="estado"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        required
+      >
+      <option selected value="">Seleccione un estado</option>
+        <option value="0">Como nuevo</option>
+        <option value="1">Detalles esteticos</option>
+        <option value="2">Detalles fuertes</option>
+      </select>
+    </div>
+
+    <!-- Precio Base -->
+    <div>
+      <label
+        for="precio_base"
+        class="block mb-2 text-sm font-medium text-gray-900"
+        min="0"
+        >Precio Base</label
+      >
+      <input
+        type="number"
+        step="0.01"
+        id="precio_base"
+        name="precio_base"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        required
+      />
+    </div>
+
+    <!-- IMEI -->
+    <div>
+      <label for="imei" class="block mb-2 text-sm font-medium text-gray-900"
+        >IMEI</label
+      >
+      <input
+        type="text"
+        id="imei"
+        name="imei"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        required
+      />
+    </div>
+
+    <!-- IMEI 2 -->
+    <div>
+      <label for="imei2" class="block mb-2 text-sm font-medium text-gray-900"
+        >IMEI 2 (Opcional)</label
+      >
+      <input
+        type="text"
+        id="imei2"
+        name="imei2"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+      />
+    </div>
+
+    <!-- Imagen -->
+    <div>
+      <label for="imagenes" class="block mb-2 text-sm font-medium text-gray-900"
+        >Imágenes</label
+      >
+      <input
+        type="file"
+        id="imagenes"
+        name="imagenes"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        required
+      />
+    </div>
+
+    <!-- Detalles -->
+    <div class="md:col-span-2">
+      <label for="detalles" class="block mb-2 text-sm font-medium text-gray-900"
+        >Detalles</label
+      >
+      <textarea
+        id="detalles"
+        name="detalles"
+        rows="4"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        required
+      ></textarea>
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="text-black bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+  >
+    Crear
+  </button>
+</form>
+{% endblock %}
