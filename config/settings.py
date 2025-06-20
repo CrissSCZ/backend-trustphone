@@ -95,6 +95,7 @@ INSTALLED_APPS = [
     'apps.Clientes',
     'apps.Celulares',
     'apps.Web',
+    'apps.VentasApi',
     'apps.Dashboard',
     'rest_framework',
 ]

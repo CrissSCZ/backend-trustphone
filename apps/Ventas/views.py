@@ -6,8 +6,6 @@ from apps.Celulares.models import Celular
 from apps.Clientes.models import Cliente
 from apps.Usuarios.models import Usuario
 
-
-
 def main(request):
     id_usuario = request.session.get('user_id')
     ventas = Venta.objects.prefetch_related(
@@ -48,10 +46,6 @@ def crear_venta(request):
     
     return render(request, 'modules/ventas/crear_venta.html', {'celulares': celulares, 'clientes': clientes})
 
-def obtener_venta(request, id_venta):
-    venta = Venta.objects.get(id_venta=id_venta)
-    return render(request, 'modules/ventas/obtener_venta.html', {'venta': venta})
-
 def generar_recibo(request, id_venta):
     venta = Venta.objects.get(id_venta=id_venta)
     detalles = Detalle_Venta.objects.select_related('celular').filter(venta=venta)
@@ -59,3 +53,4 @@ def generar_recibo(request, id_venta):
         'venta': venta,
         'detalles': detalles
     })
+
