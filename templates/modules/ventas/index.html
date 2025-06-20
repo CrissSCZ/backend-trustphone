@@ -47,9 +47,10 @@ Nueva Venta
           <td class="px-6 py-4">{{venta.usuario}}</td>  
           <td class="px-6py-4">
             <a
-              href="{% url 'obtener_venta' venta.id_venta %}"
+              href="{% url 'generar_recibo' venta.id_venta %}"
+              target="_blank"
               class="px-6 font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >Ver</a
+              >Recibo</a
             >
           </td>
         </tr>

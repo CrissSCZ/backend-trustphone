@@ -2,3 +2,4 @@ django
 pillow 
 django-cors-headers
 rest_framework
+weasyprint

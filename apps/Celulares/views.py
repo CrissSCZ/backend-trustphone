@@ -5,7 +5,7 @@ from apps.Tiendas.models import Tienda
 
 def main(request):
     tienda_id = request.session.get('user_tienda')
-    celulares = Celular.objects.filter(tienda=tienda_id)
+    celulares = Celular.objects.filter(tienda=tienda_id, estado_venta=0)
     return render(request, 'modules/celulares/index.html', {'celulares': celulares})
 
 def crear_celular(request):

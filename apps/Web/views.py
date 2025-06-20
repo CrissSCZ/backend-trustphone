@@ -21,7 +21,7 @@ def login_view(request):
                 request.session['user_tienda'] = str(tienda.id_tienda)
                 request.session['user_tienda_nombre'] = tienda.nombre
                 request.session['user_tienda_imagen'] = tienda.fotografia.url
-                return redirect('celulares')
+                return redirect('dashboard')
             else:
                 error = 'Credenciales incorrectas'
         except Usuario.DoesNotExist:
@@ -29,7 +29,7 @@ def login_view(request):
         
         return render(request, 'modules/login/index.html', {
             'error': error,
-            'email': email  # Mantener el email en el formulario
+            'email': email 
         })
     
     return render(request, 'modules/login/index.html')
