@@ -12,22 +12,22 @@ class ClienteLoginView(APIView):
 
         try:
             cliente = Cliente.objects.get(email=email)
-            
-            # Aquí deberías verificar la contraseña
-            # Por ahora, asumimos que la contraseña es correcta
-            
-            return Response({
-                'message': 'Inicio de sesión exitoso',
-                'cliente': {
-                    'id': str(cliente.id_cliente),
-                    'nombre': cliente.nombre,
-                    'apellido': cliente.apellido,
-                    'email': cliente.email,
-                    'carnet': cliente.carnet,
-                    'activo': cliente.activo
-                }
-            }, status=status.HTTP_200_OK)
-
+            if cliente.password == password:
+                return Response({
+                    'message': 'Inicio de sesión exitoso',
+                    'cliente': {
+                        'id': str(cliente.id_cliente),
+                        'nombre': cliente.nombre,
+                        'apellido': cliente.apellido,
+                        'email': cliente.email,
+                        'carnet': cliente.carnet,
+                        'activo': cliente.activo
+                    }
+                }, status=status.HTTP_200_OK)
+            else:
+                return Response({
+                    'message': 'Email o contraseña incorrectos'
+                }, status=status.HTTP_401_UNAUTHORIZED) 
         except Cliente.DoesNotExist:
             return Response({
                 'message': 'Email o contraseña incorrectos'

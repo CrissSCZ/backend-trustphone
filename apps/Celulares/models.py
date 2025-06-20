@@ -21,6 +21,11 @@ class Celular(models.Model):
         (12, '12GB'),
         (16, '16GB'),
     )
+    estado_venta_choices = (
+        (0, 'Disponible'),
+        (1, 'Vendido'),
+        (2, 'Reservado'),
+    )
     almacenamiento_choices = (
         (8, '8GB'),
         (16, '16GB'),
@@ -54,6 +59,7 @@ class Celular(models.Model):
     marca = models.ForeignKey('Marca', on_delete=models.CASCADE)
     tienda = models.ForeignKey('Tiendas.Tienda', on_delete=models.CASCADE)
     vendedor = models.ForeignKey('Vendedores.Vendedor', on_delete=models.CASCADE)
+    estado_venta = models.IntegerField(choices=estado_venta_choices, default=0)
     activo = models.BooleanField(default=True)
     
     def __str__(self):

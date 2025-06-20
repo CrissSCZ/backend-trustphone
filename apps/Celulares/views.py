@@ -4,7 +4,8 @@ from apps.Vendedores.models import Vendedor
 from apps.Tiendas.models import Tienda
 
 def main(request):
-    celulares = Celular.objects.all()
+    tienda_id = request.session.get('user_tienda')
+    celulares = Celular.objects.filter(tienda=tienda_id)
     return render(request, 'modules/celulares/index.html', {'celulares': celulares})
 
 def crear_celular(request):

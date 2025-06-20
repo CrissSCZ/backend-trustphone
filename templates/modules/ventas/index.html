@@ -1,0 +1,60 @@
+{% extends 'layout/admin.html' %}
+{% block content %}
+<a 
+  href="{% url 'crear_venta' %}"
+  type="button"
+  class="text-white bg-blue-700 mb-5 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+>
+Nueva Venta
+</a>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
+    <table
+      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">Fecha</th>
+          <th scope="col" class="px-6 py-3">Producto</th>
+          <th scope="col" class="px-6 py-3">Total</th>
+          <th scope="col" class="px-6 py-3">Cliente</th>
+          <th scope="col" class="px-6 py-3">Usuario</th>
+          <th scope="col" class="px-6 py-3">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for venta in ventas%}
+        <tr
+          class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200"
+        >
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{venta.fecha}}
+          </th>
+          <td class="px-6 py-4">
+            {% with venta.detalle_venta_set.first as detalle %}
+              {% if detalle and detalle.celular.imagenes %}
+                <img src="{{ detalle.celular.imagenes.url }}" alt="Imagen del celular" class="w-16 h-16 object-cover rounded-md" />
+              {% endif %}
+            {% endwith %}
+          </td>
+                    
+          <td class="px-6 py-4">{{venta.total}} Bs</td>
+          <td class="px-6 py-4">{{venta.cliente}}</td>
+          <td class="px-6 py-4">{{venta.usuario}}</td>  
+          <td class="px-6py-4">
+            <a
+              href="{% url 'obtener_venta' venta.id_venta %}"
+              class="px-6 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              >Ver</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

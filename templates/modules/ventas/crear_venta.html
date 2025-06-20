@@ -1,0 +1,103 @@
+{% extends 'layout/admin.html' %}
+
+{% block content %}
+<form id="venta-form" action="{% url 'crear_venta' %}" method="post">
+  {% csrf_token %}
+  
+  <label for="select-celular" class="block mb-2">Selecciona un celular</label>
+  <div class="flex gap-2 mb-5">
+    <select id="select-celular" style="width: 100%">
+      {% for celular in celulares %}
+      <option
+        value="{{ celular.id_celular }}"
+        data-imagen="{{ celular.imagenes.url }}"
+        data-text="{{ celular.precio }} Bs - {{ celular.marca }} {{ celular.modelo }} {{celular.color}} - {{celular.almacenamiento}}+{{celular.ram}} Gb"
+      >
+        {{ celular.precio }} Bs - {{ celular.marca }} {{ celular.modelo }} {{celular.color}} - {{celular.almacenamiento}}+{{celular.ram}} Gb
+      </option>
+      {% endfor %}
+    </select>
+    <button type="button" id="btn-agregar" class="bg-blue-600 btn-sm text-white px-3 py-2 rounded">
+      Agregar
+    </button>
+  </div>
+
+  <div id="carrito" class="mb-5 space-y-2">
+
+  </div>
+
+  <label for="cliente" class="block mb-2">Selecciona un cliente</label>
+  <select name="cliente" id="cliente" class="w-full mb-5">
+    {% for cliente in clientes %}
+    <option value="{{ cliente.id_cliente }}">
+      {{ cliente.nombre }} {{ cliente.apellido }}
+    </option>
+    {% endfor %}
+  </select>
+
+  <button
+    type="submit"
+    class="text-white bg-blue-700 mb-5 mt-5 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+  >
+    Crear Venta
+  </button>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function formatCelular(state) {
+    if (!state.id) return state.text;
+    const imagen = $(state.element).data("imagen");
+    return $(`
+      <span style="display: flex; align-items: center;">
+        <img src="${imagen}" style="width: 40px; height: 40px; object-fit: cover; margin-right: 8px; border-radius: 6px;" />
+        ${state.text}
+      </span>
+    `);
+  }
+
+  $(document).ready(function () {
+    $('#select-celular').select2({
+      templateResult: formatCelular,
+      templateSelection: formatCelular,
+      width: 'resolve'
+    });
+
+    $('#cliente').select2({
+      placeholder: "Buscar cliente...",
+      width: '100%',
+      minimumResultsForSearch: 1 
+    });
+
+    let celularesAgregados = new Set();
+
+    $('#btn-agregar').click(function () {
+      const selectedOption = $('#select-celular').find(':selected');
+      const text = selectedOption.data('text');
+      const imagen = selectedOption.data('imagen');
+      const id = selectedOption.val();
+
+      if (celularesAgregados.has(id)) return;
+
+      celularesAgregados.add(id);
+
+      $('#carrito').append(`
+        <div class="flex items-center gap-3 border p-2 rounded" data-id="${id}">
+          <img src="${imagen}" class="w-16 h-16 object-cover rounded" />
+          <span class="font-semibold">${text}</span>
+          <button type="button" class="bg-red-600 text-white px-3 py-2 ml-auto rounded eliminar">Eliminar</button>
+          <input type="hidden" name="celulares" value="${id}">
+        </div>
+      `);
+    });
+
+    $('#carrito').on('click', '.eliminar', function () {
+      const contenedor = $(this).closest('div[data-id]');
+      const id = contenedor.data('id');
+      celularesAgregados.delete(id);
+      contenedor.remove();
+    });
+  });
+</script>
+{% endblock %}

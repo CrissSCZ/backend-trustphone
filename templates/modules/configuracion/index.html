@@ -16,14 +16,14 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <!-- Nombre de la tienda -->
       <div>
-        <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900"
+        <label for="nombre_tienda" class="block mb-2 text-sm font-medium text-gray-900"
           >Nombre</label
         >
         <input
           value="{{ tienda.nombre }}"
           type="text"
-          id="nombre"
-          name="nombre"
+          id="nombre_tienda"
+          name="nombre_tienda"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
           required
         />
@@ -32,15 +32,15 @@
       <!-- Dirección -->
       <div>
         <label
-          for="direccion"
+          for="direccion_tienda"
           class="block mb-2 text-sm font-medium text-gray-900"
           >Dirección</label
         >
         <input
           value="{{ tienda.direccion }}"
           type="text"
-          id="direccion"
-          name="direccion"
+          id="direccion_tienda"
+          name="direccion_tienda"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
           required
         />
@@ -49,13 +49,13 @@
       <!-- Detalles -->
       <div class="md:col-span-2">
         <label
-          for="detalles"
+          for="detalles_tienda"
           class="block mb-2 text-sm font-medium text-gray-900"
           >Detalles</label
         >
         <textarea
-          id="detalles"
-          name="detalles"
+          id="detalles_tienda"
+          name="detalles_tienda"
           rows="10"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
           required
@@ -82,14 +82,14 @@
         <!-- Cargar nueva imagen -->
         <div class="mt-4">
           <label
-            for="fotografia"
+            for="fotografia_tienda"
             class="block mb-2 text-sm font-medium text-gray-900"
             >Cambiar fotografía</label
           >
           <input
             type="file"
-            id="fotografia"
-            name="fotografia"
+            id="fotografia_tienda"
+            name="fotografia_tienda"
             accept="image/*"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
           />
@@ -116,7 +116,7 @@
           value="{{ encargado.nombre }}"
           type="text"
           id="nombre_encargado"
-          name="nombre"
+          name="nombre_encargado"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
           required
         />
@@ -125,15 +125,15 @@
       <!-- Apellidos -->
       <div>
         <label
-          for="apellido"
+          for="apellido_encargado"
           class="block mb-2 text-sm font-medium text-gray-900"
           >Apellidos</label
         >
         <input
           value="{{ encargado.apellido }}"
           type="text"
-          id="apellido"
-          name="apellido"
+          id="apellido_encargado"
+          name="apellido_encargado"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
           required
         />
@@ -142,15 +142,15 @@
       <!-- Teléfono -->
       <div>
         <label
-          for="telefono"
+          for="telefono_encargado"
           class="block mb-2 text-sm font-medium text-gray-900"
           >Teléfono</label
         >
         <input
           value="{{ encargado.telefono }}"
           type="text"
-          id="telefono"
-          name="telefono"
+          id="telefono_encargado"
+          name="telefono_encargado"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
           required
         />
@@ -158,14 +158,14 @@
 
       <!-- Correo -->
       <div>
-        <label for="correo" class="block mb-2 text-sm font-medium text-gray-900"
+        <label for="correo_encargado" class="block mb-2 text-sm font-medium text-gray-900"
           >Correo</label
         >
         <input
           value="{{ encargado.correo }}"
           type="email"
-          id="correo"
-          name="correo"
+          id="correo_encargado"
+          name="correo_encargado"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
           required
         />
@@ -173,14 +173,14 @@
 
       <!-- Carnet -->
       <div>
-        <label for="carnet" class="block mb-2 text-sm font-medium text-gray-900"
+        <label for="carnet_encargado" class="block mb-2 text-sm font-medium text-gray-900"
           >Carnet de Identidad</label
         >
         <input
           value="{{ encargado.carnet }}"
           type="text"
-          id="carnet"
-          name="carnet"
+          id="carnet_encargado"
+          name="carnet_encargado"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
           required
         />

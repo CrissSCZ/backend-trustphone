@@ -20,6 +20,7 @@ Nuevo Celular
         <th scope="col" class="px-6 py-3">Color</th>
         <th scope="col" class="px-6 py-3">Precio</th>
         <th scope="col" class="px-6 py-3">Ram + Almacenamiento</th>
+        <th scope="col" class="px-6 py-3">Estado</th>
         <th scope="col" class="px-6 py-3">Acciones</th>
       </tr>
     </thead>
@@ -45,7 +46,12 @@ Nuevo Celular
 
         <td class="px-6 py-4">{{celular.color}}</td>
         <td class="px-6 py-4">{{celular.precio}}</td>
-        <td class="px-6 py-4">{{celular.ram}} + {{celular.almacenamiento}} Gb</td>
+        <td class="px-6 py-4">{{celular.ram}} + {{celular.almacenamiento}} Gb</td> 
+        {% if celular.estado_venta == 0 %}
+          <td class="px-6 py-4 text-green-600">Disponible</td>
+        {% else %}
+          <td class="px-6 py-4 text-red-600">Vendido</td>
+        {% endif %}
         <td class="px-6py-4">
           <a
             href="#"

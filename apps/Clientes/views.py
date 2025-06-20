@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -48,3 +48,33 @@ class ClienteGoogleAuthView(APIView):
                 'message': 'Error interno del servidor',
                 'error': str(e)
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+def main(request):
+    clientes = Cliente.objects.all()
+    return render(request, 'modules/clientes/index.html', {'clientes': clientes})
+
+def crear_cliente(request):
+    if request.method == 'POST':
+
+        cliente = Cliente.objects.create(
+           nombre=request.POST.get('nombre'),
+           apellido=request.POST.get('apellido'),
+           email=request.POST.get('email'),
+           carnet=request.POST.get('carnet'),
+           activo = True
+        )
+        return redirect('clientes')
+    return render(request, 'modules/clientes/crear_cliente.html')
+
+def editar_cliente(request, id_cliente):
+    if request.method == 'POST':
+        cliente = Cliente.objects.get(id_cliente=id_cliente)    
+        cliente.nombre = request.POST.get('nombre')
+        cliente.apellido = request.POST.get('apellido')
+        cliente.email = request.POST.get('email')
+        cliente.carnet = request.POST.get('carnet')
+        cliente.save()
+        return redirect('clientes')
+    else:
+        cliente = Cliente.objects.get(id_cliente=id_cliente)
+        return render(request, 'modules/clientes/editar_cliente.html', {'cliente': cliente})
