@@ -1,151 +1,237 @@
 {% extends 'layout/admin.html' %} {% block content %}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <h2>Editar Celular</h2>
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="modelo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Modelo</label>
-                            <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="modelo" name="modelo" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="color" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Color</label>
-                            <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="color" name="color" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="almacenamiento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Almacenamiento</label>
-                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="almacenamiento" name="almacenamiento" required>
-                                {% for value, label in almacenamiento_choices %}
-                                <option value="{{ value }}">{{ label }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="ram" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">RAM</label>
-                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="ram" name="ram" required>
-                                {% for value, label in ram_choices %}
-                                <option value="{{ value }}">{{ label }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="estado" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Estado</label>
-                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="estado" name="estado" required>
-                                {% for value, label in estado_choices %}
-                                <option value="{{ value }}">{{ label }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="detalles" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Detalles</label>
-                            <textarea class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="detalles" name="detalles" rows="3" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="precio_base" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Precio Base</label>
-                            <input type="number" step="0.01" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="precio_base" name="precio_base" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="precio_minimo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Precio Mínimo</label>
-                            <input type="number" step="0.01" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="precio_minimo" name="precio_minimo" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="precio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Precio</label>
-                            <input type="number" step="0.01" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="precio" name="precio" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="marca" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Marca</label>
-                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="marca" name="marca" required>
-                                {% for marca in marcas %}
-                                <option value="{{ marca.id }}">{{ marca.nombre }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="tienda" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Tienda</label>
-                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="tienda" name="tienda" required>
-                                {% for tienda in tiendas %}
-                                <option value="{{ tienda.id }}">{{ tienda.nombre }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="vendedor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Vendedor</label>
-                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="vendedor" name="vendedor" required>
-                                {% for vendedor in vendedores %}
-                                <option value="{{ vendedor.id }}">{{ vendedor.nombre }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="imei" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">IMEI</label>
-                            <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="imei" name="imei" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="imei2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">IMEI 2 (Opcional)</label>
-                            <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="imei2" name="imei2">
-                        </div>
-                        <div class="form-group">
-                            <label for="imagenes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Imágenes</label>
-                            <input type="file" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" id="imagenes" name="imagenes" required>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="activo" name="activo" checked>
-                                <label class="form-check-label" for="activo">Activo</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar</button>
-                    <a href="{% url 'celulares:index' %}" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancelar</a>
-                </div>
-            </form>
-        </div>
+<form
+  class="max-w-5xl mx-auto"
+  action="{% url 'editar_celular' celular.id_celular %}"
+  method="post"
+  enctype="multipart/form-data"
+>
+  {% csrf_token %}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Marca -->
+    <div>
+      <label for="marca" class="block mb-2 text-sm font-medium text-gray-900"
+        >Marca</label
+      >
+      <select
+        id="marca"
+        name="marca"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        
+      >
+      <option selected value="{{ celular.marca.id_marca }}">{{ celular.marca.nombre }}</option>
+        {% for marca in marcas %}
+        <option value="{{ marca.id_marca }}">{{ marca.nombre }}</option>
+        {% endfor %}
+      </select>
     </div>
-</div>
-      name="apellidos"
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-    />
+    <!-- Modelo -->
+    <div>
+      <label for="modelo" class="block mb-2 text-sm font-medium text-gray-900"
+        >Modelo</label
+      >
+      <input
+        value="{{ celular.modelo }}"
+        type="text"
+        id="modelo"
+        name="modelo"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        
+      />
+    </div>
+
+    <!-- Color -->
+    <div>
+      <label for="color" class="block mb-2 text-sm font-medium text-gray-900"
+        >Color</label
+      >
+      <select
+        value="{{ celular.color }}"
+        id="color"
+        name="color"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        
+      >
+      <option selected value="{{ celular.color }}">{{ celular.color }}</option>
+        <option value="Negro">⚫ Negro</option>
+        <option value="Blanco">⚪ Blanco</option>
+        <option value="Gris">🔘 Gris</option>
+        <option value="Azul">🔵 Azul</option>
+        <option value="Rojo">🔴 Rojo</option>
+        <option value="Dorado">🟡 Dorado</option>
+        <option value="Plateado">⚪ Plateado</option>
+        <option value="Verde">🟢 Verde</option>
+        <option value="Morado">🟣 Morado</option>
+        <option value="Rosado">🌸 Rosado</option>
+      </select>
+    </div>
+
+    <!-- Vendedor -->
+    <div>
+      <label for="vendedor" class="block mb-2 text-sm font-medium text-gray-900"
+        >Vendedor</label
+      >
+      <select
+        value="{{ celular.vendedor.id_vendedor }}"
+        id="vendedor"
+        name="vendedor"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        
+      >
+      <option selected value="{{ celular.vendedor.id_vendedor }}">{{ celular.vendedor.nombre }} {{ celular.vendedor.apellido }} - {{ celular.vendedor.correo }}</option>
+        {% for vendedor in vendedores %}
+        <option value="{{ vendedor.id_vendedor }}">
+          {{ vendedor.nombre }} {{ vendedor.apellido }} - {{ vendedor.correo }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Almacenamiento -->
+    <div>
+      <label
+        for="almacenamiento"
+        class="block mb-2 text-sm font-medium text-gray-900"
+        >Almacenamiento</label
+      >
+      <select
+        value="{{ celular.almacenamiento }}"
+        id="almacenamiento"
+        name="almacenamiento"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        
+      >
+      <option selected value="{{ celular.almacenamiento }}">{{ celular.almacenamiento }} GB</option>
+        <option value="16">16 GB</option>
+        <option value="32">32 GB</option>
+        <option value="64">64 GB</option>
+        <option value="128">128 GB</option>
+        <option value="256">256 GB</option>
+        <option value="512">512 GB</option>
+      </select>
+    </div>
+
+    <!-- RAM -->
+    <div>
+      <label for="ram" class="block mb-2 text-sm font-medium text-gray-900"
+        >RAM</label
+      >
+      <select
+        value="{{ celular.ram }}"
+        id="ram"
+        name="ram"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        
+      >
+        <option selected value="{{ celular.ram }}">{{ celular.ram }} GB</option>
+        <option value="2">2 GB</option>
+        <option value="4">4 GB</option>
+        <option value="8">8 GB</option>
+        <option value="16">16 GB</option>
+      </select>
+    </div>
+
+    <!-- Estado -->
+    <div>
+      <label for="estado" class="block mb-2 text-sm font-medium text-gray-900"
+        >Estado</label
+      >
+      <select
+        value="{{ celular.estado }}"
+        id="estado"
+        name="estado"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        
+      >
+      <option selected value="{{ celular.estado }}">{{ celular.estado}}</option>
+        <option value="0">Como nuevo</option>
+        <option value="1">Detalles esteticos</option>
+        <option value="2">Detalles fuertes</option>
+      </select>
+    </div>
+
+    <!-- Precio Base -->
+    <div>
+      <label
+        for="precio_base"
+        class="block mb-2 text-sm font-medium text-gray-900"
+        min="0"
+        >Precio Base</label
+      >
+      <input
+        type="number"
+        step="0.01"
+        id="precio_base"
+        name="precio_base"
+        value="{{ celular.precio_base }}"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        
+      />
+    </div>
+
+    <!-- IMEI -->
+    <div>
+      <label for="imei" class="block mb-2 text-sm font-medium text-gray-900"
+        >IMEI</label
+      >
+      <input
+        type="text"
+        id="imei"
+        name="imei"
+        value="{{ celular.imei }}"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        
+      />
+    </div>
+
+    <!-- IMEI 2 -->
+    <div>
+      <label for="imei2" class="block mb-2 text-sm font-medium text-gray-900"
+        >IMEI 2 (Opcional)</label
+      >
+      <input
+        type="text"
+        id="imei2"
+        name="imei2"
+        value="{{ celular.imei2 }}"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+      />
+    </div>
+
+    <!-- Imagen -->
+    <div>
+      <label for="imagenes" class="block mb-2 text-sm font-medium text-gray-900"
+        >Imagen actual</label
+      >
+      <img src="{{ celular.imagenes.url }}" alt="{{ celular.modelo }}" class="w-24 h-24 object-cover">
+      
+      <input
+        type="file"
+        id="imagenes"
+        name="imagenes"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+      />
+    </div>
+
+    <!-- Detalles -->
+    <div class="md:col-span-2">
+      <label for="detalles" class="block mb-2 text-sm font-medium text-gray-900"
+        >Detalles</label
+      >
+      <textarea
+        id="detalles"
+        name="detalles"
+        rows="4"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        
+      >{{ celular.detalles }}</textarea>
+    </div>
   </div>
-  <div class="mb-5">
-    <label
-      for="telefono"
-      class="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-      >Telefono</label
-    >
-    <input
-      style="background-color: white; color: black"
-      type="text"
-      id="telefono"
-      name="telefono"
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-    />
-  </div>
-  <div class="mb-5">
-    <label
-      for="correo"
-      class="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-      >Correo</label
-    >
-    <input
-      style="background-color: white; color: black"
-      type="text"
-      id="correo"
-      name="correo"
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-    />
-  </div>
+
   <button
     type="submit"
     class="text-black bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
   >
-    Crear
+    Editar
   </button>
 </form>
 {% endblock %}

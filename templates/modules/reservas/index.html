@@ -1,0 +1,72 @@
+{% extends 'layout/admin.html' %} {% block content %}
+<h1 class="text-3xl font-bold text-gray-900 mb-2">Reservas</h1>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
+  <table
+    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+  >
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="px-6 py-3">Fecha</th>
+        <th scope="col" class="px-6 py-3">Cliente</th>
+        <th scope="col" class="px-6 py-3">Celular</th>
+        <th scope="col" class="px-6 py-3">Total a pagar</th>
+        <th scope="col" class="px-6 py-3">Estado</th>
+        <th scope="col" class="px-6 py-3">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for reserva in reservas%}
+      <tr
+        class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200"
+      >
+        <td class="px-6 py-4">{{reserva.fecha}}</td>
+        <th
+          scope="row"
+          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        >
+          {{reserva.cliente.nombre}} {{reserva.cliente.apellido}}
+        </th>
+        <td class="px-6 py-4">
+          <p class="mb-1 font-bold">{{reserva.celular}}</p>
+          <img
+            src="{{reserva.celular.imagenes.url}}"
+            alt=""
+            class="w-16 h-16 object-cover"
+          />
+        </td>
+        <td class="px-6 py-4">
+          <span class="line-through text-gray-500 mr-2"
+            >{{ reserva.celular.precio }} Bs</span
+          >
+          <span class="text-green-600 font-bold"
+            >{{ reserva.celular.precio|add:"-100" }} Bs</span
+          >
+        </td>
+        {% if reserva.estado == 'pendiente' %}
+          <td class="px-6 py-4 text-orange-600 font-semibold">Pendiente</td>
+        {% else %}
+          <td class="px-6 py-4 text-green-600 font-semibold">Terminada</td>
+        {% endif %}
+        <td class="px-6 py-4">
+          <a
+            href="{% url 'ver_reserva' reserva.id_reserva %}"
+            class="px-6 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            >Ver</a
+          >
+          {% if reserva.estado == 'pendiente' %}
+            <a
+              href="{% url 'terminar_reserva' reserva.id_reserva %}"
+              class="px-6 font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              >Terminar</a
+            >
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

@@ -23,6 +23,7 @@ urlpatterns = [
     path('api/tiendas/', include('apps.Tiendas.urls')),
     path('api/clientes/', include('apps.Clientes.urls')),
     path('api/ventas/', include('apps.VentasApi.urls')),
+    path('api/reservas/', include('apps.Reservas.urls')),
     path('administrador/panel/', include('apps.Web.urls')),
 ]
 

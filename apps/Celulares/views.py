@@ -60,3 +60,35 @@ def crear_celular(request):
             'vendedores': vendedores,
             'marcas': marcas
         })
+
+def editar_celular(request, id_celular):
+    celular = Celular.objects.get(id_celular=id_celular)
+    vendedores = Vendedor.objects.filter(activo=True)
+    marcas = Marca.objects.filter(activo=True)
+    if request.method == 'POST':
+        celular.modelo = request.POST['modelo']
+        celular.color = request.POST['color']
+        celular.ram = int(request.POST['ram'])
+        celular.almacenamiento = int(request.POST['almacenamiento'])
+        celular.estado = int(request.POST['estado'])
+        celular.detalles = request.POST['detalles']
+        celular.imei = request.POST['imei']
+        celular.imei2 = request.POST.get('imei2', None)
+        celular.precio_base = float(request.POST['precio_base'])
+        celular.marca_id = request.POST['marca']
+        celular.vendedor_id = request.POST['vendedor']
+        celular.tienda_id = request.session.get('user_tienda')
+        celular.imagenes = request.FILES.get('imagenes')
+        celular.save()
+        return redirect('celulares')
+    else:
+        return render(request, 'modules/celulares/editar_celular.html', {
+            'celular': celular,
+            'vendedores': vendedores,
+            'marcas': marcas
+        })
+
+def eliminar_celular(request, id_celular):
+    celular = Celular.objects.get(id_celular=id_celular)
+    celular.delete()
+    return redirect('celulares')

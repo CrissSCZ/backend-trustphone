@@ -1,0 +1,84 @@
+{% extends 'layout/admin.html' %} {% block content %}
+<div class="max-w-5xl mx-auto bg-white p-6 rounded-lg shadow-md mt-6">
+  <h2 class="text-2xl font-bold mb-6 text-gray-900">
+    Detalle de Reserva #{{ reserva.id_reserva }}
+  </h2>
+
+  <!-- Datos del celular -->
+  <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
+    <!-- Datos generales de la reserva -->
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-800 mb-6"
+    >
+      <p><span class="font-semibold">Fecha:</span> {{ reserva.fecha }}</p>
+      <p>
+        <span class="font-semibold">Cliente:</span> {{ reserva.cliente.nombre }}
+        {{ reserva.cliente.apellido }} - {{ reserva.cliente.email }}
+      </p>
+      <p><span class="font-semibold">Monto Adelantado:</span> 100 Bs</p>
+      {% if reserva.estado == 'pendiente' %}
+        <p class="font-semibold">Estado de reserva:
+          <span class="font-semibold text-orange-600 uppercase">{{ reserva.estado }}</span>
+        </p>
+      {% elif reserva.estado == 'terminada' %}
+        <p class="font-semibold">Estado de reserva:
+          <span class="font-semibold text-green-600 uppercase">{{ reserva.estado }}</span>
+        </p>
+      {% endif %}
+    </div>
+    <div class="flex items-center space-x-6">
+      <img
+        src="{{ reserva.celular.imagenes.url }}"
+        alt="imagen_celular"
+        class="w-32 h-32 object-cover rounded border border-gray-300"
+      />
+      <div class="space-y-2 text-sm text-gray-800">
+        <p>
+          <span class="font-semibold">Modelo:</span> {{ reserva.celular.marca }}
+          {{ reserva.celular.modelo }} - {{ reserva.celular.color }}
+        </p>
+        <p>
+          <span class="font-semibold">IMEI:</span> {{ reserva.celular.imei }}
+        </p>
+        <p>
+          <span class="font-semibold">IMEI 2:</span> {{ reserva.celular.imei2 }}
+        </p>
+        <p>
+          <span class="font-semibold">Almacenamiento + RAM:</span> 
+          {{ reserva.celular.almacenamiento }} + {{ reserva.celular.ram }} GB
+        </p>
+        <p>
+          <span class="font-semibold">Precio Original:</span>
+          <span class="line-through text-gray-500"
+            >{{ reserva.celular.precio }} Bs</span
+          >
+        </p>
+        <p>
+          <span class="font-semibold">Monto a Cancelar:</span>
+          <span class="text-green-600 font-semibold"
+            >{{ reserva.celular.precio|add:"-100" }} Bs</span
+          >
+        </p>
+        
+      </div>
+    </div>
+    <div class="flex items-center space-x-6 mt-4">
+      {% if reserva.estado != 'terminada' %}
+      <a
+        href="{% url 'terminar_reserva' reserva.id_reserva %}"
+        class="inline-block mt-2 px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white text-sm font-medium rounded-lg focus:ring-4 focus:ring-blue-300"
+      >
+        Terminar Reserva
+      </a>
+      {% endif %}
+      <a
+        href="{{ reserva.comprobante.url }}"
+        target="_blank"
+        class="inline-block mt-2 px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white text-sm font-medium rounded-lg focus:ring-4 focus:ring-blue-300"
+      >
+        Ver comprobante
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -50,16 +50,16 @@ Nuevo Celular
         {% if celular.estado_venta == 0 %}
           <td class="px-6 py-4 text-green-600">Disponible</td>
         {% else %}
-          <td class="px-6 py-4 text-red-600">Vendido</td>
+          <td class="px-6 py-4 text-orange-600">Reservado</td>
         {% endif %}
         <td class="px-6py-4">
           <a
-            href="#"
+            href="{% url 'editar_celular' celular.id_celular %}"
             class="px-6 font-medium text-blue-600 dark:text-blue-500 hover:underline"
             >Editar</a
           >
           <a
-            href="#"
+            href="{% url 'eliminar_celular' celular.id_celular %}"
             class="font-medium text-blue-600 dark:text-red-500 hover:underline"
             >Eliminar</a
           >

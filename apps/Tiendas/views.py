@@ -13,6 +13,6 @@ class TiendaListView(APIView):
    
 class CelularesPorTiendaView(APIView):
    def get(self, request, id_tienda):
-      celulares = Celular.objects.filter(tienda=id_tienda)
+      celulares = Celular.objects.filter(tienda=id_tienda).exclude(estado_venta=1)
       serializer = CelularSerializer(celulares, many=True)
       return Response(serializer.data)

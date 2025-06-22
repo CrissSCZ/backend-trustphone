@@ -12,4 +12,5 @@ urlpatterns = [
     path('clientes/', include(('apps.Clientes.urls'))),
     path('dashboard/', include(('apps.Dashboard.urls'))),
     path('ventas/', include(('apps.Ventas.urls'))),
+    path('reservas/', include(('apps.Reservas.urls'))),
 ]
