@@ -3,3 +3,4 @@ pillow
 django-cors-headers
 rest_framework
 weasyprint
+psycopg2-binary
